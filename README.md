@@ -25,7 +25,7 @@ SH1PATHON is a highly-optimized, aesthetically premium Next.js landing page buil
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/gobitsnbytes/shipathon.git
    cd shipathon
    ```
 
