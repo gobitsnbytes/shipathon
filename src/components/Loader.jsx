@@ -66,7 +66,7 @@ export default function Loader({ onComplete }) {
 
       <div style={styles.content}>
         <div style={styles.logoContainer}>
-          {'SHIPATHON'.split('').map((letter, i) => (
+          {'SH1PATHON'.split('').map((letter, i) => (
             <span
               key={i}
               style={{
@@ -105,7 +105,7 @@ export default function Loader({ onComplete }) {
           </div>
           <span>Bits&Bytes' Phaser ×</span>
           <img src="/shipaccelerator_logo.jpg" alt="ShipLogo" style={{ height: '16px', borderRadius: '2px', marginLeft: '2px' }} />
-          <span><em style={{ fontStyle: 'italic' }}>Ship</em></span>
+          <span><em style={{ fontStyle: 'italic' }}>SH1P</em></span>
         </div>
       </div>
 

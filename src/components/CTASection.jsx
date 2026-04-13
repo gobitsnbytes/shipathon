@@ -291,7 +291,7 @@ export default function CTASection() {
 
           <h2 className="cta-title" style={styles.title}>
             Ready to<br />
-            <em style={styles.titleAccent}><em style={{ fontStyle: 'italic' }}>Ship</em>?</em>
+            <em style={styles.titleAccent}><em style={{ fontStyle: 'italic' }}>SH1P</em>?</em>
           </h2>
         </div>
 
@@ -392,7 +392,7 @@ export default function CTASection() {
       <footer style={styles.footer}>
         <div className="cta-footer-inner" style={styles.footerInner}>
           <div style={styles.footerLeft}>
-            <span style={styles.footerLogo}><em style={{ fontStyle: 'italic' }}>SHIP</em>ATHON</span>
+            <span style={styles.footerLogo}><em style={{ fontStyle: 'italic' }}>SH1P</em>ATHON</span>
             <span style={styles.footerDot} />
           </div>
           <div style={{ ...styles.footerText, display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
@@ -403,7 +403,7 @@ export default function CTASection() {
             </div>
             <span>Bits&Bytes' Phaser<span style={{ color: '#ff2d78' }}>*</span> ×</span>
             <img src="/shipaccelerator_logo.jpg" alt="ShipLogo" style={{ height: '16px', borderRadius: '2px', marginLeft: '2px' }} />
-            <span><em style={{ fontStyle: 'italic' }}>Ship</em> · {CURRENT_YEAR}</span>
+            <span><em style={{ fontStyle: 'italic' }}>SH1P</em> · {CURRENT_YEAR}</span>
           </div>
           <div style={{ fontSize: '0.65rem', color: 'rgba(255, 255, 255, 0.35)', marginTop: '0.75rem', textAlign: 'center', maxWidth: '600px', lineHeight: 1.5 }}>
             * Phaser is a Bits&Bytes vertical dedicated to robotics builders, hardware hackers, and makers — the community for people who build things you can hold.

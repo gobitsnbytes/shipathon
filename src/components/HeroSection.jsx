@@ -167,14 +167,14 @@ export default function HeroSection() {
 
             <h1 className="main-title">
               <span className="title-glowing-wrapper hero-shipathon">
-                 <span className="text-ship">SHIP</span>
+                 <span className="text-ship">SH1P</span>
                  <span className="text-athon">ATHON</span>
               </span>
             </h1>
             
             <p className="main-subtitle">
               <span className="text-highlight">48 hours.</span> One mission. <br/>
-              <em className="ship-inline">Ship</em> something extraordinary.
+              <em className="ship-inline">SH1P</em> something extraordinary.
             </p>
             
             <div className="cta-container">

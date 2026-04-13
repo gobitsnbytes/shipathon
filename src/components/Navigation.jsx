@@ -74,7 +74,7 @@ export default function Navigation() {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            <span style={styles.logoText}>SHIPATHON</span>
+            <span style={styles.logoText}>SH1PATHON</span>
             <span style={styles.logoDot} />
           </a>
 

@@ -17,13 +17,13 @@ const SPONSORS = {
       )
     },
     { 
-      name: 'Ship', 
+      name: 'SH1P', 
       isLogoNode: (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
           <div style={{ marginTop: '8px' }}>
             <img src="/shipaccelerator_logo.jpg" alt="Ship Accelerator" style={{ height: '48px', borderRadius: '4px' }} />
           </div>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.8rem', fontWeight: 500, color: 'rgba(255, 255, 255, 0.5)', letterSpacing: '0.05em' }}>Ship</span>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.8rem', fontWeight: 500, color: 'rgba(255, 255, 255, 0.5)', letterSpacing: '0.05em' }}>SH1P</span>
         </div>
       )
     },
@@ -170,7 +170,7 @@ export default function SponsorsSection() {
           transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
           transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s',
         }}>
-          <p style={styles.sponsorCtaText}>Want to sponsor Shipathon?</p>
+          <p style={styles.sponsorCtaText}>Want to sponsor SH1PATHON?</p>
           <a href="#cta" data-hover style={styles.sponsorCtaLink}>Get in touch →</a>
         </div>
       </div>
