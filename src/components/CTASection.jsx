@@ -97,7 +97,7 @@ function Ring({ position, radius = 1.5, tube = 0.02, speed = 0.3, color = '#ff2d
 }
 
 /* ─── Orbital Particles ─── */
-function OrbitalParticles({ count = 40 }) {
+function OrbitalParticles({ count = 25 }) {
   const pointsRef = useRef();
 
   const positions = useMemo(() => {
@@ -156,7 +156,7 @@ function CTAScene() {
       <Ring position={[0, 0, 0]} radius={3.5} tube={0.01} speed={0.1} color="#ff6b9d" />
 
       {/* Particles orbiting */}
-      <OrbitalParticles count={50} />
+      <OrbitalParticles count={25} />
 
       {/* Central icosahedron */}
       <Float speed={1.5} rotationIntensity={0.6} floatIntensity={0.3}>
@@ -267,6 +267,7 @@ export default function CTASection() {
             camera={{ position: [0, 0, 6], fov: 50 }}
             dpr={[1, 1.5]}
             gl={{ antialias: true, alpha: true, powerPreference: 'default' }}
+            frameloop="always"
             style={{ position: 'absolute', inset: 0 }}
           >
             <CTAScene />
@@ -411,8 +412,8 @@ export default function CTASection() {
           100% { transform: translateX(300%) skewX(-15deg); }
         }
         @keyframes pulseGlow {
-          0%, 100% { box-shadow: 0 8px 40px rgba(255, 45, 120, 0.3), 0 0 80px rgba(255, 45, 120, 0.1); }
-          50% { box-shadow: 0 8px 60px rgba(255, 45, 120, 0.45), 0 0 120px rgba(255, 45, 120, 0.2); }
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 0.6; }
         }
         @media (max-width: 900px) {
           #cta { padding: 5rem 1rem 0 !important; }
@@ -656,7 +657,7 @@ const styles = {
     letterSpacing: '0.12em',
     textTransform: 'uppercase',
     overflow: 'hidden',
-    animation: 'pulseGlow 3s ease-in-out infinite',
+    boxShadow: '0 8px 40px rgba(255, 45, 120, 0.3), 0 0 80px rgba(255, 45, 120, 0.1)',
     transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
   },
   ctaBtnText: {
@@ -672,6 +673,7 @@ const styles = {
     zIndex: -1,
     filter: 'blur(12px)',
     opacity: 0.4,
+    animation: 'pulseGlow 3s ease-in-out infinite',
   },
   ctaBtnShine: {
     position: 'absolute',

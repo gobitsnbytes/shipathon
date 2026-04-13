@@ -2,7 +2,7 @@
 
 import { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Float, Environment } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import * as THREE from 'three';
 
 const seededRandom = (seed) => {
@@ -11,7 +11,7 @@ const seededRandom = (seed) => {
 };
 
 /* ─── Floating Particles ─── */
-function Particles({ count = 120 }) {
+function Particles({ count = 60 }) {
   const mesh = useRef();
   const { viewport } = useThree();
 
@@ -261,9 +261,9 @@ function SceneContent({ scrollProgress, mousePos }) {
 
       <AbstractStoryGeometrics scrollProgress={scrollProgress} mousePos={mousePos} />
       <FloatingGeometrics mousePos={mousePos} />
-      <Particles count={100} />
+      <Particles count={60} />
 
-      <Environment preset="city" environmentIntensity={0.12} />
+      <hemisphereLight args={['#1a0a12', '#000', 0.3]} />
     </>
   );
 }

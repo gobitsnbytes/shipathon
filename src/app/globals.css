@@ -160,7 +160,7 @@ body.custom-cursor-enabled textarea {
 }
 
 /* Firefox */
-* {
+html {
   scrollbar-width: thin;
   scrollbar-color: var(--pink-glow-soft) var(--black-pure);
 }

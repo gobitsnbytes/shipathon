@@ -35,15 +35,6 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <head>
-        <link
-          rel="preload"
-          href="/hero-video.mp4"
-          as="video"
-          type="video/mp4"
-          fetchPriority="high"
-        />
-      </head>
       <body>
         {children}
       </body>

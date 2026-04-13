@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import { setCachedVideoUrl } from './videoCache';
 
 export default function Loader({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const [phase, setPhase] = useState('loading'); // loading | revealing | done
-  const [previewSrc, setPreviewSrc] = useState('');
   const containerRef = useRef(null);
   const objectUrlRef = useRef('');
 
@@ -14,7 +14,7 @@ export default function Loader({ onComplete }) {
     let isMounted = true;
     
     // Guarantee the cinematic loader displays for at least 1500ms even on gigabit
-    const minDelayPromise = new Promise(resolve => setTimeout(resolve, 1500));
+    const minDelayPromise = new Promise(resolve => setTimeout(resolve, 800));
     
     const preloadChunksPromise = Promise.allSettled([
       import('@/components/TracksSection'),
@@ -40,7 +40,7 @@ export default function Loader({ onComplete }) {
 
         if ((xhr.status === 200 || xhr.status === 206) && xhr.response instanceof Blob) {
           objectUrlRef.current = URL.createObjectURL(xhr.response);
-          setPreviewSrc(objectUrlRef.current);
+          setCachedVideoUrl(objectUrlRef.current);
         }
 
         resolve();
@@ -68,10 +68,7 @@ export default function Loader({ onComplete }) {
     return () => {
       isMounted = false;
       xhr.abort();
-
-      if (objectUrlRef.current) {
-        URL.revokeObjectURL(objectUrlRef.current);
-      }
+      // Note: we do NOT revoke objectUrlRef here — HeroSection reuses it
     };
   }, [onComplete]);
 
@@ -85,19 +82,7 @@ export default function Loader({ onComplete }) {
         ...(phase === 'revealing' ? styles.containerReveal : {}),
       }}
     >
-      {previewSrc && (
-        <video
-          aria-hidden="true"
-          muted
-          loop
-          autoPlay
-          playsInline
-          preload="auto"
-          src={previewSrc}
-          style={styles.previewVideo}
-        />
-      )}
-      <div style={styles.previewOverlay} />
+
 
       <div style={styles.content}>
         <div style={styles.logoContainer}>

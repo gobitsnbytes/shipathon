@@ -11,7 +11,7 @@ export default function Cursor() {
   const cursorRef = useRef(null);
 
   // Constraints and physics
-  const NUM_POINTS = 24;
+  const NUM_POINTS = 16;
   const VISCOSITY = 0.45;
   const points = useRef(Array(NUM_POINTS).fill(null).map(() => ({ x: -100, y: -100 })));
   const mousePos = useRef({ x: -100, y: -100 });
@@ -116,7 +116,6 @@ export default function Cursor() {
           style={{ 
             transition: 'stroke-width 0.4s cubic-bezier(0.16, 1, 0.3, 1)', 
             strokeWidth: isHovering ? 18 : 6,
-            filter: 'drop-shadow(0 0 12px rgba(255, 45, 120, 0.5))'
           }}
         />
         <defs>

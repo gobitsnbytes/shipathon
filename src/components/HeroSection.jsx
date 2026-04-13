@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { getCachedVideoUrl } from './videoCache';
 
 const STORY_PHASES = [
   {
@@ -30,45 +31,7 @@ export default function HeroSection() {
   const leftScrollRef = useRef(null);
   const videoRef = useRef(null);
   const blocksRef = useRef([]);
-  const audioCtxRef = useRef(null);
   const isLowMotionRef = useRef(false);
-  
-  // Custom Web Audio API Synthesizer to create mechanical gear ticks natively!
-  const playGearTick = (isHeavy = false) => {
-    if (isLowMotionRef.current) return;
-
-    try {
-      if (!audioCtxRef.current) audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
-      const ctx = audioCtxRef.current;
-      if (ctx.state === 'suspended') ctx.resume();
-      
-      // 1. Low physical thud (Sub-bass / Magnet locking)
-      const osc1 = ctx.createOscillator();
-      const gain1 = ctx.createGain();
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(isHeavy ? 150 : 80, ctx.currentTime);
-      osc1.frequency.exponentialRampToValueAtTime(20, ctx.currentTime + (isHeavy ? 0.15 : 0.05));
-      gain1.gain.setValueAtTime(isHeavy ? 0.08 : 0.02, ctx.currentTime);
-      gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (isHeavy ? 0.15 : 0.05));
-      osc1.connect(gain1);
-      gain1.connect(ctx.destination);
-
-      // 2. High metallic click (Click / Servo mechanism)
-      const osc2 = ctx.createOscillator();
-      const gain2 = ctx.createGain();
-      osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(isHeavy ? 800 : 400 + Math.random() * 200, ctx.currentTime);
-      osc2.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.03);
-      gain2.gain.setValueAtTime(isHeavy ? 0.04 : 0.01, ctx.currentTime);
-      gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
-      osc2.connect(gain2);
-      gain2.connect(ctx.destination);
-
-      osc1.start(); osc1.stop(ctx.currentTime + (isHeavy ? 0.15 : 0.05));
-      osc2.start(); osc2.stop(ctx.currentTime + 0.03);
-    } catch {}
-  };
-
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -84,10 +47,17 @@ export default function HeroSection() {
       }
     };
 
+    // Attach listener BEFORE setting src to avoid race with fast blob URLs
     if (video.readyState >= 1) {
       onMetadataLoaded();
     } else {
       video.addEventListener('loadedmetadata', onMetadataLoaded, { once: true });
+    }
+
+    // Use the pre-cached blob URL from the Loader to avoid a redundant network fetch
+    const cachedUrl = getCachedVideoUrl();
+    if (cachedUrl) {
+      video.src = cachedUrl;
     }
 
     if (isLowMotionRef.current) {
@@ -103,16 +73,12 @@ export default function HeroSection() {
       if (typeof playPromise?.catch === 'function') {
         playPromise.catch(() => {});
       }
-
-      return () => {
-        if (audioCtxRef.current && audioCtxRef.current.state !== 'closed') {
-          audioCtxRef.current.close().catch(() => {});
-        }
-      };
+      return () => {};
     }
 
     let targetProgress = 0;
     let frameId;
+    let frameCount = 0; // Throttle block visibility to every 3rd frame
     const NUM_PHASES = 5; // Title + 4 phases
 
     const handleScroll = () => {
@@ -131,7 +97,6 @@ export default function HeroSection() {
       const newTarget = Math.round(p * intervals) / intervals;
       
       if (newTarget !== targetProgress) {
-          playGearTick(true); // Heavy chunk click!
           targetProgress = newTarget;
       }
     };
@@ -149,11 +114,7 @@ export default function HeroSection() {
         // at the end, preventing the jagged 2-frame micro-stutter at lock!
         if (absDelta > 0.08) {
           
-          const tickDelay = Math.max(40, 180 - (absDelta * 80));
-          if (Date.now() - lastTick > tickDelay) {
-             playGearTick();
-             lastTick = Date.now();
-          }
+
 
           if (delta > 0) {
             if (video.paused) video.play();
@@ -174,14 +135,10 @@ export default function HeroSection() {
           } else {
             if (!video.paused) video.pause();
             
-            // Stepped reverse scrubbing
-            let step = 0.12;
-            if (absDelta > 1.5) step = 0.25;
-            else if (absDelta > 0.8) step = 0.15;
-            else if (absDelta > 0.3) step = 0.08;
-            else step = 0.05;
-
-            video.currentTime -= step; 
+            // Instant cinematic cut for reverse scroll. 
+            // Video decoders cannot play backwards efficiently. Manually stepping currentTime
+            // on a rAF loop forces synchronous I-frame decoding, instantly lagging the main thread.
+            video.currentTime = targetTime;
           }
         } else {
           // Let it natively rest naturally exactly where the decoder halted.
@@ -193,24 +150,24 @@ export default function HeroSection() {
         }
       }
 
-      // Check the exact visual center for blurring
-      const windowH = window.innerHeight;
-      blocksRef.current.forEach((block) => {
-        if (!block) return;
-        const blockRect = block.getBoundingClientRect();
-        const distFromCenter = Math.abs(blockRect.top + blockRect.height / 2 - windowH / 2);
-        
-        // Ensure absolutely crystal clear text only when perfectly centered!
-        if (distFromCenter < 50) {
-            block.style.opacity = 1;
-            block.style.filter = `blur(0px)`;
-        } else {
-            let opacity = 1 - (distFromCenter / (windowH * 0.5));
-            opacity = Math.max(0.05, Math.min(1, opacity));
-            block.style.opacity = opacity;
-            block.style.filter = `blur(${Math.max(0, (1 - opacity) * 12)}px)`;
-        }
-      });
+      // Every 5th frame: update block opacity (NO blur — blur forces full re-rasterization)
+      frameCount++;
+      if (frameCount % 5 === 0) {
+        const windowH = window.innerHeight;
+        blocksRef.current.forEach((block) => {
+          if (!block) return;
+          const blockRect = block.getBoundingClientRect();
+          const distFromCenter = Math.abs(blockRect.top + blockRect.height / 2 - windowH / 2);
+          
+          if (distFromCenter < 50) {
+              block.style.opacity = 1;
+          } else {
+              let opacity = 1 - (distFromCenter / (windowH * 0.5));
+              opacity = Math.max(0.05, Math.min(1, opacity));
+              block.style.opacity = opacity;
+          }
+        });
+      }
 
       frameId = requestAnimationFrame(updatePlayhead);
     };
@@ -226,10 +183,6 @@ export default function HeroSection() {
     return () => {
       if (scrollContainer) scrollContainer.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(frameId);
-
-      if (audioCtxRef.current && audioCtxRef.current.state !== 'closed') {
-        audioCtxRef.current.close().catch(() => {});
-      }
     };
   }, []);
 
@@ -389,8 +342,7 @@ export default function HeroSection() {
           flex-direction: column;
           justify-content: center;
           padding: 0 clamp(2rem, 4vw, 5rem);
-          will-change: opacity, filter;
-          transition: filter 0.15s ease-out, opacity 0.15s ease-out;
+          transition: opacity 0.15s ease-out;
           position: relative;
         }
         .hero-title-block {
@@ -621,10 +573,10 @@ export default function HeroSection() {
             font-weight: 500;
         }
         @keyframes playheadScan { 
-            0% { top: -20px; opacity: 0; } 
+            0% { transform: translateY(-20px); opacity: 0; } 
             20% { opacity: 1; } 
             80% { opacity: 1; } 
-            100% { top: 60px; opacity: 0; } 
+            100% { transform: translateY(60px); opacity: 0; } 
         }
 
         @media (max-width: 900px) {

@@ -89,8 +89,8 @@ export default function AboutSection() {
 
       <style>{`
         @keyframes gridMove {
-          0% { background-position: 0 0; }
-          100% { background-position: 0 40px; }
+          0% { transform: perspective(400px) rotateX(65deg) translateY(0); }
+          100% { transform: perspective(400px) rotateX(65deg) translateY(40px); }
         }
       `}</style>
 
@@ -286,11 +286,11 @@ const styles = {
     `,
     maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
     WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
-    transform: 'perspective(400px) rotateX(65deg)',
     transformOrigin: 'bottom center',
     zIndex: 0,
     pointerEvents: 'none',
     animation: 'gridMove 2s linear infinite',
+    willChange: 'transform',
   },
   inner: {
     position: 'relative',
