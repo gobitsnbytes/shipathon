@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { getCachedVideoUrl } from './videoCache';
+import { getFrameImage } from './sequenceCache';
 
 const STORY_PHASES = [
   {
@@ -29,57 +29,38 @@ const STORY_PHASES = [
 export default function HeroSection() {
   const sectionRef = useRef(null);
   const leftScrollRef = useRef(null);
-  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
   const blocksRef = useRef([]);
   const isLowMotionRef = useRef(false);
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
     const lowMotionQuery = window.matchMedia('(max-width: 900px), (pointer: coarse), (prefers-reduced-motion: reduce)');
     isLowMotionRef.current = lowMotionQuery.matches;
 
-    const onMetadataLoaded = () => {
-      video.currentTime = 0;
-
-      if (!isLowMotionRef.current) {
-        video.pause();
-      }
-    };
-
-    // Attach listener BEFORE setting src to avoid race with fast blob URLs
-    if (video.readyState >= 1) {
-      onMetadataLoaded();
-    } else {
-      video.addEventListener('loadedmetadata', onMetadataLoaded, { once: true });
-    }
-
-    // Use the pre-cached blob URL from the Loader to avoid a redundant network fetch
-    const cachedUrl = getCachedVideoUrl();
-    if (cachedUrl) {
-      video.src = cachedUrl;
+    // Draw the initial frame to prevent blank screen
+    const initialFrame = getFrameImage(0);
+    if (initialFrame && initialFrame.complete) {
+        ctx.drawImage(initialFrame, 0, 0, canvas.width, canvas.height);
     }
 
     if (isLowMotionRef.current) {
       blocksRef.current.forEach((block) => {
         if (!block) return;
         block.style.opacity = 1;
-        block.style.filter = 'blur(0px)';
       });
-
-      video.loop = true;
-      video.playbackRate = 1;
-      const playPromise = video.play();
-      if (typeof playPromise?.catch === 'function') {
-        playPromise.catch(() => {});
-      }
       return () => {};
     }
 
     let targetProgress = 0;
+    let currentFrame = 0;
+    let lastRenderedFrame = -1;
     let frameId;
-    let frameCount = 0; // Throttle block visibility to every 3rd frame
-    const NUM_PHASES = 5; // Title + 4 phases
+    let frameCount = 0;
+    const NUM_PHASES = 5;
+    const TOTAL_FRAMES = 241;
 
     const handleScroll = () => {
       const scroller = leftScrollRef.current;
@@ -89,65 +70,30 @@ export default function HeroSection() {
       const scrollHeight = scroller.scrollHeight;
       const clientHeight = scroller.clientHeight;
 
-      // Calculate progress (0 to 1) perfectly within the left container
       let p = scrollTop / (scrollHeight - clientHeight);
       p = Math.max(0, Math.min(1, p));
       
       const intervals = NUM_PHASES - 1;
-      const newTarget = Math.round(p * intervals) / intervals;
-      
-      if (newTarget !== targetProgress) {
-          targetProgress = newTarget;
-      }
+      targetProgress = Math.round(p * intervals) / intervals;
     };
 
-    let lastTick = 0;
     const updatePlayhead = () => {
-      // Native Video Playback logic for absolutely fluid rendering
-      if (video.duration && isFinite(video.duration)) {
-        const targetTime = targetProgress * video.duration;
-        const current = video.currentTime;
-        const delta = targetTime - current;
-        const absDelta = Math.abs(delta);
+      // Hardware Accelerated Sequence Drawing
+      const targetFrameIndex = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(targetProgress * (TOTAL_FRAMES - 1))));
+      
+      // Smooth easing in both directions (forward and reverse)
+      currentFrame += (targetFrameIndex - currentFrame) * 0.12;
+      
+      const frameToDraw = Math.round(currentFrame);
 
-        // Relaxed boundary. Crucially, we do NOT snap currentTime to targetTime 
-        // at the end, preventing the jagged 2-frame micro-stutter at lock!
-        if (absDelta > 0.08) {
-          
-
-
-          if (delta > 0) {
-            if (video.paused) video.play();
-            
-            // Stepped Cinematic Deceleration to prevent decoder clock thrashing!
-            // We set the absolute minimum speed to 0.75x. If we drop it to 0.12x like before,
-            // a 30FPS video physically renders at 3 frames-per-second, which looks exactly like lag!
-            let targetRate = 1.0;
-            if (absDelta > 1.5) targetRate = 2.5;       // Fast scrubbing
-            else if (absDelta > 0.8) targetRate = 1.5;  // Normal approach
-            else if (absDelta > 0.3) targetRate = 0.9;  // Easing in
-            else targetRate = 0.75;                     // Final smooth floor without losing FPS
-            
-            // ONLY explicitly set if changed to avoid locking the internal presentation timestamp
-            if (video.playbackRate !== targetRate) {
-                video.playbackRate = targetRate;
-            }
-          } else {
-            if (!video.paused) video.pause();
-            
-            // Instant cinematic cut for reverse scroll. 
-            // Video decoders cannot play backwards efficiently. Manually stepping currentTime
-            // on a rAF loop forces synchronous I-frame decoding, instantly lagging the main thread.
-            video.currentTime = targetTime;
+      // Only draw to canvas if the frame actually changed to save GPU cycles
+      if (frameToDraw !== lastRenderedFrame) {
+          const img = getFrameImage(frameToDraw);
+          if (img && img.complete) {
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              lastRenderedFrame = frameToDraw;
           }
-        } else {
-          // Let it natively rest naturally exactly where the decoder halted.
-          // Zero forced assignment = zero visual jumping!
-          if (!video.paused) {
-             video.pause();
-             video.playbackRate = 1.0; 
-          }
-        }
       }
 
       // Every 5th frame: update block opacity (NO blur — blur forces full re-rasterization)
@@ -192,15 +138,12 @@ export default function HeroSection() {
       <div className="hero-right">
         <div className="video-sticky">
           <div className="video-wrapper">
-            <video
-              ref={videoRef}
-              muted
-              playsInline
-              preload="auto"
+            <canvas
+              ref={canvasRef}
+              width={1280}
+              height={720}
               className="story-video"
-            >
-              <source src="/hero-video.mp4" type="video/mp4" />
-            </video>
+            />
             <div className="video-overlay" />
           </div>
         </div>

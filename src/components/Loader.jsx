@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { setCachedVideoUrl } from './videoCache';
+import { preloadSequenceFrames } from './sequenceCache';
 
 export default function Loader({ onComplete }) {
   const [progress, setProgress] = useState(0);
@@ -23,31 +23,11 @@ export default function Loader({ onComplete }) {
       import('@/components/CTASection'),
     ]);
 
-    // Explicitly cache the hero media directly into browser cache.
-    const cacheVideoPromise = new Promise((resolve) => {
-      xhr.open('GET', '/hero-video.mp4', true);
-      xhr.responseType = 'blob';
-
-      xhr.onprogress = (e) => {
-        if (e.lengthComputable && isMounted) {
-          const percentComplete = Math.round((e.loaded / e.total) * 100);
-          setProgress(Math.min(99, percentComplete));
-        }
-      };
-
-      xhr.onload = () => {
-        if (!isMounted) return resolve();
-
-        if ((xhr.status === 200 || xhr.status === 206) && xhr.response instanceof Blob) {
-          objectUrlRef.current = URL.createObjectURL(xhr.response);
-          setCachedVideoUrl(objectUrlRef.current);
-        }
-
-        resolve();
-      };
-
-      xhr.onerror = () => resolve();
-      xhr.send();
+    // Explicitly cache the hero sequence into browser memory
+    const cacheVideoPromise = preloadSequenceFrames((percentComplete) => {
+      if (isMounted) {
+        setProgress(Math.min(99, percentComplete));
+      }
     });
 
     // We only remove the loader when media and critical chunks are ready.
