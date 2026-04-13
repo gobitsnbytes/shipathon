@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SH1PATHON 🚀
 
-## Getting Started
+**The ultimate build event by Bits&Bytes' Phaser × SH1P.**
 
-First, run the development server:
+SH1PATHON is a highly-optimized, aesthetically premium Next.js landing page built to represent the most ambitious hackathon on the planet. It utilizes modern WebGL, canvas-based image sequencing, and scroll-triggered animations to deliver a seamless, state-of-the-art interactive experience.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Hardware-Accelerated Hero Sequence:** Employs an 'Apple-style' Canvas 2D image sequence renderer tied precisely to scroll position, achieving flawless 60fps directional scrubbing with zero main-thread blockage.
+- **Dynamic GSAP Animations:** Fully responsive, scroll-linked object reveals, timeline masking, and cinematic typography powered by GSAP and ScrollTrigger.
+- **Premium Design System:** Designed utilizing custom utility aesthetics, glassmorphism UI traits, pulsing micro-animations, and sleek dark mode color palettes tailored to the `SH1P` & `Phaser` branding.
+- **Intelligent Preloading:** Custom caching mechanisms ensure critical assets (like sequence frames) are mapped directly to memory without causing layout shifts or LCP penalties.
+- **Automated CI/Deploy:** Directly integrated with GitHub Actions for automatic `pnpm`-native build resolutions and deployments to GitHub Pages.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🛠️ Tech Stack 
 
-## Learn More
+- **Framework:** Next.js 16 (React 19)
+- **3D & Animation:** Three.js, React Three Fiber, GSAP
+- **Rendering:** Canvas 2D frame sequencing mapped to `window.requestAnimationFrame`.
+- **Package Manager:** `pnpm` (Strictly enforced)
 
-To learn more about Next.js, take a look at the following resources:
+## ⚡ Setup & Development
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Important:** This repository strictly requires the use of `pnpm`. Running `npm install` or `npm ci` will throw engine mismatch and sync errors.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd shipathon
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
+   *Note: If `pnpm` throws a warning about ignoring native build scripts (e.g. `sharp`), simply run `pnpm approve-builds` to authorize the compilation.*
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Run the development server**
+   ```bash
+   pnpm dev
+   ```
+   Navigate to `localhost:3000` to view the live site. Turbopack hot-reloading is configured by default.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚢 Deployment
+
+The project is natively configured for **GitHub Pages**. Any code securely pushed to the `main` branch will seamlessly trigger the `.github/workflows/nextjs.yml` pipeline, automatically resolving dependencies via `pnpm`, pulling cache artifacts, and deploying the optimized static bundle.
+
+---
+*Phaser is a Bits&Bytes vertical dedicated to robotics builders, hardware hackers, and makers — the community for people who build things you can hold.*
