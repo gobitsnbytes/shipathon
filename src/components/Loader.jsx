@@ -97,9 +97,12 @@ export default function Loader({ onComplete }) {
           <span style={styles.progressText}>{progress}%</span>
         </div>
 
-        <p style={styles.tagline}>
-          by Bits&Bytes' Phaser × <em style={{ fontStyle: 'italic' }}>Ship</em>
-        </p>
+        <div style={{ ...styles.tagline, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+          <span>by</span>
+          <img src="/bitsnbytes.png" alt="Bits&Bytes" style={{ height: '14px', opacity: 0.8 }} />
+          <img src="/phaser.png" alt="Phaser" style={{ height: '12px', opacity: 0.8 }} />
+          <span>× <em style={{ fontStyle: 'italic' }}>Ship</em></span>
+        </div>
       </div>
 
       <style>{`

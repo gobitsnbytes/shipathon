@@ -395,9 +395,15 @@ export default function CTASection() {
             <span style={styles.footerLogo}><em style={{ fontStyle: 'italic' }}>SHIP</em>ATHON</span>
             <span style={styles.footerDot} />
           </div>
-          <p style={styles.footerText}>
-            by Bits&Bytes' Phaser × <em style={{ fontStyle: 'italic' }}>Ship</em> · {CURRENT_YEAR}
-          </p>
+          <div style={{ ...styles.footerText, display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
+            <span>by</span>
+            <img src="/bitsnbytes.png" alt="Bits&Bytes" style={{ height: '14px', opacity: 0.8 }} />
+            <img src="/phaser.png" alt="Phaser" style={{ height: '12px', opacity: 0.8 }} /><span style={{ color: '#ff2d78', marginLeft: '-4px' }}>*</span>
+            <span>× <em style={{ fontStyle: 'italic' }}>Ship</em> · {CURRENT_YEAR}</span>
+          </div>
+          <div style={{ fontSize: '0.65rem', color: 'rgba(255, 255, 255, 0.35)', marginTop: '0.75rem', textAlign: 'center', maxWidth: '600px', lineHeight: 1.5 }}>
+            * Phaser is a Bits&Bytes vertical dedicated to robotics builders, hardware hackers, and makers — the community for people who build things you can hold.
+          </div>
           <div style={styles.footerLinks}>
             <a href="#" data-hover style={styles.footerLink}>Twitter</a>
             <a href="#" data-hover style={styles.footerLink}>Discord</a>

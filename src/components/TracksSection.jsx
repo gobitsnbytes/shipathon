@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 
 const TRACKS = [
+  // --- AI/SOFTWARE TRACKS ---
   {
-    id: 'ai',
-    title: 'AI & Machine Learning',
-    description: 'Build intelligent systems that learn, adapt, and push the boundaries of what machines can do.',
+    id: 'ai-agents',
+    title: 'Agentic Orchestration',
+    description: 'Build systems where multiple AI agents coordinate complex tasks. Design foundational frameworks for interaction, autonomy, and trustworthy supervision.',
     gradient: 'linear-gradient(135deg, #ff2d78 0%, #e91e8c 100%)',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -21,9 +22,9 @@ const TRACKS = [
     ),
   },
   {
-    id: 'web3',
-    title: 'Web3 & Blockchain',
-    description: 'Decentralize the future. Build protocols, dApps, and infrastructure for the next internet.',
+    id: 'ai-edge',
+    title: 'Edge & Ubiquitous AI',
+    description: 'Focus on lightweight AI models running entirely on-device or in low-connectivity environments. Push the boundaries of compilers, quantization, and offline AI.',
     gradient: 'linear-gradient(135deg, #e91e8c 0%, #c2185b 100%)',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -34,9 +35,9 @@ const TRACKS = [
     ),
   },
   {
-    id: 'climate',
-    title: 'Climate & Sustainability',
-    description: 'Use technology to fight climate change. Build solutions that make a real difference for the planet.',
+    id: 'ai-gen',
+    title: 'Generative AI for Real Problems',
+    description: 'Build end-to-end generative pipelines that produce tangible utility. Solve concrete challenges rather than just creating superficial visual demos.',
     gradient: 'linear-gradient(135deg, #ff6b9d 0%, #ff2d78 100%)',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -47,9 +48,9 @@ const TRACKS = [
     ),
   },
   {
-    id: 'health',
-    title: 'Health & Biotech',
-    description: 'Reimagine healthcare. From diagnostics to therapeutics, build tech that saves and improves lives.',
+    id: 'ai-multi',
+    title: 'Multimodal & Multilingual AI',
+    description: 'Develop systems that understand diverse inputs—vision, audio, and regional languages together. Create "Everything Speaks" foundational models.',
     gradient: 'linear-gradient(135deg, #ff8fb4 0%, #ff6b9d 100%)',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -59,27 +60,106 @@ const TRACKS = [
     ),
   },
   {
-    id: 'fintech',
-    title: 'Fintech & Payments',
-    description: 'Reinvent money. Build financial infrastructure, payment systems, and tools for the underserved.',
+    id: 'ai-safe',
+    title: 'Safe, Aligned AI',
+    description: 'Ensure systems are trustworthy from the base up. Tackle value alignment, adversarial robustness, and bias mitigation at the core software level.',
     gradient: 'linear-gradient(135deg, #c2185b 0%, #ff2d78 100%)',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <circle cx="16" cy="16" r="13" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M12 12C12 10 14 8 17 8C20 8 22 10 22 12C22 14 20 15 17 15C14 15 12 16 12 18C12 20 14 22 17 22C20 22 22 20 22 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <line x1="17" y1="5" x2="17" y2="8" stroke="currentColor" strokeWidth="1.5"/>
-        <line x1="17" y1="22" x2="17" y2="25" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M16 3L28 8V18C28 24 16 30 16 30C16 30 4 24 4 18V8L16 3Z" stroke="currentColor" strokeWidth="1.5"/>
+        <circle cx="16" cy="15" r="4" stroke="currentColor" strokeWidth="1.5"/>
       </svg>
     ),
   },
   {
-    id: 'open',
-    title: 'Open Innovation',
-    description: 'No constraints. Build anything that excites you. The wildest ideas win.',
+    id: 'ai-infra',
+    title: 'AI Infrastructure & Tooling',
+    description: 'Build the foundational pipelines that power AI: distributed training frameworks, scalable simulators, dataset generators, and novel MLOps compilers.',
     gradient: 'linear-gradient(135deg, #ff2d78 0%, #ff00ff 100%)',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <path d="M16 2L20 12L30 14L22 22L24 32L16 27L8 32L10 22L2 14L12 12L16 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+        <rect x="6" y="6" width="20" height="20" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+        <line x1="10" y1="12" x2="22" y2="12" stroke="currentColor" strokeWidth="1.5"/>
+        <line x1="16" y1="12" x2="16" y2="22" stroke="currentColor" strokeWidth="1.5"/>
+      </svg>
+    ),
+  },
+  // --- ROBOTICS/HARDWARE TRACKS ---
+  {
+    id: 'robot-water',
+    title: 'Pipeline Prowess',
+    description: 'Robots for inspecting and repairing water infrastructure. Prototype crawlers or submersibles carrying sensor suites to combat leakages and protect clean water.',
+    gradient: 'linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%)',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M16 26C20 26 24 22 24 16C24 10 16 2 16 2C16 2 8 10 8 16C8 22 12 26 16 26Z" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M12 16C12 18.2 13.8 20 16 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
+    id: 'robot-grid',
+    title: 'Grid Guardians',
+    description: 'Autonomous systems to monitor electrical infrastructure. Develop drones or robots with computer vision and LiDAR to inspect substations and power lines.',
+    gradient: 'linear-gradient(135deg, #fceabb 0%, #f8b500 100%)',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M18 4L8 16H16L14 28L24 16H16L18 4Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
+  {
+    id: 'robot-city',
+    title: 'City Scanners',
+    description: 'Maintain and map urban infrastructure. Push the limits of autonomous SLAM and structural analysis algorithms using wheeled robots and UAVs.',
+    gradient: 'linear-gradient(135deg, #9d50bb 0%, #6e48aa 100%)',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M4 28H28" stroke="currentColor" strokeWidth="1.5"/>
+        <rect x="10" y="8" width="12" height="20" stroke="currentColor" strokeWidth="1.5"/>
+        <rect x="5" y="16" width="5" height="12" stroke="currentColor" strokeWidth="1.5"/>
+        <rect x="22" y="12" width="5" height="16" stroke="currentColor" strokeWidth="1.5"/>
+      </svg>
+    ),
+  },
+  {
+    id: 'robot-agri',
+    title: 'Farm to Fork',
+    description: 'Tap into massive agricultural logistics. Tackle rugged outdoor terrain using smart tractors, crop-monitoring drones, and automated last-mile shipping robots.',
+    gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M16 2V30" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M16 12C20 6 26 8 26 14C26 18 20 20 16 16" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M16 18C12 12 6 14 6 20C6 24 12 26 16 22" stroke="currentColor" strokeWidth="1.5"/>
+      </svg>
+    ),
+  },
+  {
+    id: 'robot-health',
+    title: 'CuraBots',
+    description: 'Robotics for healthcare settings. Design autonomous ward logistics, compliant lab handling systems, or UV disinfecting robots for clinical purity.',
+    gradient: 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="12" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M16 10V22" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M10 16H22" stroke="currentColor" strokeWidth="1.5"/>
+      </svg>
+    ),
+  },
+  {
+    id: 'robot-transport',
+    title: 'Mobility & Rail',
+    description: 'Hardware for transport automation. Inspect rail networks and optimize cargo handling using high-fidelity vision processing and robust robotic integration.',
+    gradient: 'linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%)',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M6 8H26" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M6 16H26" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M6 24H26" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M10 4V28" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M22 4V28" stroke="currentColor" strokeWidth="1.5"/>
       </svg>
     ),
   },
@@ -127,7 +207,7 @@ export default function TracksSection() {
             Choose Your <span style={styles.accent}>Arena</span>
           </h2>
           <p style={styles.subtitle}>
-            Six tracks. Infinite possibilities. Pick the challenge that ignites your passion.
+            Twelve tracks across AI and Robotics. Infinite possibilities. Pick the challenge that ignites your passion.
           </p>
         </div>
 

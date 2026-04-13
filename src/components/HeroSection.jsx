@@ -158,7 +158,7 @@ export default function HeroSection() {
             
             <div className="tech-badge">
                 <span className="pulse-dot"></span>
-                BITS&BYTES × PHASER // SYS.INIT
+                BITS&BYTES' PHASER // SYS.INIT
             </div>
 
             <h1 className="main-title">
