@@ -16,11 +16,11 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata = {
   title: "Shipathon — Build. Ship. Conquer.",
   description:
-    "Shipathon is the ultimate hackathon by Phaser × Ship. 48 hours of building, shipping, and pushing boundaries. Join the most ambitious builders on the planet.",
-  keywords: ["hackathon", "shipathon", "phaser", "ship", "coding", "builders"],
+    "Shipathon is the ultimate hackathon by Bits&Bytes' Phaser × Ship. 48 hours of building, shipping, and pushing boundaries. Join the most ambitious builders on the planet.",
+  keywords: ["hackathon", "shipathon", "bits&bytes", "phaser", "ship", "coding", "builders"],
   openGraph: {
     title: "Shipathon — Build. Ship. Conquer.",
-    description: "The most ambitious hackathon on the planet. By Phaser × Ship.",
+    description: "The most ambitious hackathon on the planet. By Bits&Bytes' Phaser × Ship.",
     type: "website",
   },
 };

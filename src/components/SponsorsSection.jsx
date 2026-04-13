@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const SPONSORS = {
   platinum: [
-    { name: 'Phaser', initials: 'FR' },
+    { name: "Bits&Bytes' Phaser", initials: 'BB' },
     { name: 'Ship', initials: 'SH' },
   ],
   gold: [

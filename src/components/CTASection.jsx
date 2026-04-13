@@ -396,7 +396,7 @@ export default function CTASection() {
             <span style={styles.footerDot} />
           </div>
           <p style={styles.footerText}>
-            by Phaser × <em style={{ fontStyle: 'italic' }}>Ship</em> · {CURRENT_YEAR}
+            by Bits&Bytes' Phaser × <em style={{ fontStyle: 'italic' }}>Ship</em> · {CURRENT_YEAR}
           </p>
           <div style={styles.footerLinks}>
             <a href="#" data-hover style={styles.footerLink}>Twitter</a>

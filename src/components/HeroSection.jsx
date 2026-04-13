@@ -158,7 +158,7 @@ export default function HeroSection() {
             
             <div className="tech-badge">
                 <span className="pulse-dot"></span>
-                PHASER_SYS.LOG.001 // BOOT SEQUENCE
+                BITS&BYTES × PHASER // SYS.INIT
             </div>
 
             <h1 className="main-title">
@@ -332,11 +332,11 @@ export default function HeroSection() {
           display: inline-flex;
           align-items: center;
           font-family: 'Space Grotesk', sans-serif;
-          font-size: clamp(4rem, 8vw, 8.5rem);
+          font-size: clamp(3rem, 10vw, 8.5rem);
           font-weight: 900;
           letter-spacing: -0.04em;
           text-transform: uppercase;
-          word-break: break-word;
+          white-space: nowrap;
           filter: drop-shadow(0px 15px 40px rgba(255,45,120,0.4));
         }
         .text-ship {

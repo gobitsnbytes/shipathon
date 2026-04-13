@@ -98,7 +98,7 @@ export default function Loader({ onComplete }) {
         </div>
 
         <p style={styles.tagline}>
-          by Phaser × <em style={{ fontStyle: 'italic' }}>Ship</em>
+          by Bits&Bytes' Phaser × <em style={{ fontStyle: 'italic' }}>Ship</em>
         </p>
       </div>
 
