@@ -24,7 +24,7 @@ const MILESTONES = [
   {
     date: 'May 10-12',
     title: '48h Build Sprint',
-    description: 'The main event. Code, create, and ship something extraordinary.',
+    description: 'The main event. Code, create, and sh1p something extraordinary.',
     status: 'upcoming',
   },
   {

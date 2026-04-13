@@ -105,7 +105,7 @@ export default function AboutSection() {
         >
           <span style={styles.label}>
             <span style={styles.labelDot} />
-            About <em style={styles.italic}>Shipathon</em>
+            About <em style={styles.italic}>SH1PATHON</em>
           </span>
 
           <h2 style={styles.title}>
@@ -115,9 +115,9 @@ export default function AboutSection() {
           </h2>
 
           <p style={styles.description}>
-            <em style={styles.italic}>Shipathon</em> isn&apos;t just a hackathon. It&apos;s a proving ground for the
+            <em style={styles.italic}>SH1PATHON</em> isn&apos;t just a hackathon. It&apos;s a proving ground for the
             world&apos;s most driven builders. In 48 hours, you&apos;ll go from idea to
-            launch, surrounded by people who don&apos;t just dream — they <em style={styles.italic}>ship</em>.
+            launch, surrounded by people who don&apos;t just dream — they <em style={styles.italic}>sh1p</em>.
           </p>
         </div>
 
