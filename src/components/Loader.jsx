@@ -99,9 +99,13 @@ export default function Loader({ onComplete }) {
 
         <div style={{ ...styles.tagline, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
           <span>by</span>
-          <img src="/bitsnbytes.png" alt="Bits&Bytes" style={{ height: '14px', opacity: 0.8 }} />
-          <img src="/phaser.png" alt="Phaser" style={{ height: '12px', opacity: 0.8 }} />
-          <span>× <em style={{ fontStyle: 'italic' }}>Ship</em></span>
+          <div style={{ position: 'relative', display: 'inline-block', margin: '0 8px 0 6px' }}>
+            <img src="/bitsnbytes.png" alt="Bits&Bytes" style={{ position: 'absolute', top: '-4px', left: '-10px', height: '6px', opacity: 0.9 }} />
+            <img src="/phaser.png" alt="Phaser" style={{ height: '16px', opacity: 0.9 }} />
+          </div>
+          <span>Bits&Bytes' Phaser ×</span>
+          <img src="/shipaccelerator_logo.jpg" alt="ShipLogo" style={{ height: '16px', borderRadius: '2px', marginLeft: '2px' }} />
+          <span><em style={{ fontStyle: 'italic' }}>Ship</em></span>
         </div>
       </div>
 

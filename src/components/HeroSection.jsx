@@ -7,7 +7,7 @@ const STORY_PHASES = [
   {
     kicker: "01 // THE IGNITION",
     title: "THE ULTIMATE BUILD EVENT",
-    text: "48 hours. One mission. Ship something extraordinary. No slides, no business plans. Just pure execution and relentless ambition."
+    text: "48 hours. One mission. SH1P something extraordinary. No slides, no business plans. Just pure execution and relentless ambition."
   },
   {
     kicker: "02 // THE DECONSTRUCTION",
@@ -158,7 +158,11 @@ export default function HeroSection() {
             
             <div className="tech-badge">
                 <span className="pulse-dot"></span>
-                BITS&BYTES' PHASER // SYS.INIT
+                <div style={{ position: 'relative', display: 'inline-block', margin: '0 6px 0 4px', transform: 'translateY(1px)' }}>
+                  <img src="/bitsnbytes.png" alt="Bits&Bytes" style={{ position: 'absolute', top: '-4px', left: '-8px', height: '5px', opacity: 0.9 }} />
+                  <img src="/phaser.png" alt="Phaser" style={{ height: '12px', opacity: 0.9 }} />
+                </div>
+                <span>BITS&BYTES' PHASER <span style={{ opacity: 0.6 }}>// SYS.INIT</span></span>
             </div>
 
             <h1 className="main-title">

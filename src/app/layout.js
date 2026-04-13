@@ -14,13 +14,13 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata = {
-  title: "Shipathon — Build. Ship. Conquer.",
+  title: "SH1PATHON — Build. SH1P. Conquer.",
   description:
-    "Shipathon is the ultimate hackathon by Bits&Bytes' Phaser × Ship. 48 hours of building, shipping, and pushing boundaries. Join the most ambitious builders on the planet.",
-  keywords: ["hackathon", "shipathon", "bits&bytes", "phaser", "ship", "coding", "builders"],
+    "SH1PATHON is the ultimate hackathon by Bits&Bytes' Phaser × SH1P. 48 hours of building, shipping, and pushing boundaries. Join the most ambitious builders on the planet.",
+  keywords: ["hackathon", "sh1pathon", "bits&bytes", "phaser", "sh1p", "coding", "builders"],
   openGraph: {
-    title: "Shipathon — Build. Ship. Conquer.",
-    description: "The most ambitious hackathon on the planet. By Bits&Bytes' Phaser × Ship.",
+    title: "SH1PATHON — Build. SH1P. Conquer.",
+    description: "The most ambitious hackathon on the planet. By Bits&Bytes' Phaser × SH1P.",
     type: "website",
   },
 };

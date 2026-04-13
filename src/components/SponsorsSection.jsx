@@ -4,8 +4,29 @@ import { useEffect, useRef, useState } from 'react';
 
 const SPONSORS = {
   platinum: [
-    { name: "Bits&Bytes' Phaser", initials: 'BB' },
-    { name: 'Ship', initials: 'SH' },
+    { 
+      name: "Bits&Bytes' Phaser", 
+      isLogoNode: (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
+          <div style={{ position: 'relative', display: 'inline-block', marginTop: '8px' }}>
+            <img src="/bitsnbytes.png" alt="Bits&Bytes" style={{ position: 'absolute', top: '-10px', left: '-20px', height: '14px', opacity: 0.9 }} />
+            <img src="/phaser.png" alt="Phaser" style={{ height: '48px' }} />
+          </div>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.8rem', fontWeight: 500, color: 'rgba(255, 255, 255, 0.5)', letterSpacing: '0.05em' }}>Bits&Bytes' Phaser</span>
+        </div>
+      )
+    },
+    { 
+      name: 'Ship', 
+      isLogoNode: (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
+          <div style={{ marginTop: '8px' }}>
+            <img src="/shipaccelerator_logo.jpg" alt="Ship Accelerator" style={{ height: '48px', borderRadius: '4px' }} />
+          </div>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.8rem', fontWeight: 500, color: 'rgba(255, 255, 255, 0.5)', letterSpacing: '0.05em' }}>Ship</span>
+        </div>
+      )
+    },
   ],
   gold: [
     { name: 'Vercel', initials: 'VC' },
@@ -83,8 +104,12 @@ export default function SponsorsSection() {
                 onMouseEnter={() => setHoveredSponsor(`p-${i}`)}
                 onMouseLeave={() => setHoveredSponsor(null)}
               >
-                <span style={styles.platinumInitials}>{sponsor.initials}</span>
-                <span style={styles.platinumName}>{sponsor.name}</span>
+                {sponsor.isLogoNode ? sponsor.isLogoNode : (
+                  <>
+                    <span style={styles.platinumInitials}>{sponsor.initials}</span>
+                    <span style={styles.platinumName}>{sponsor.name}</span>
+                  </>
+                )}
               </div>
             ))}
           </div>

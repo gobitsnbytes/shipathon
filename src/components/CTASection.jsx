@@ -397,9 +397,13 @@ export default function CTASection() {
           </div>
           <div style={{ ...styles.footerText, display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
             <span>by</span>
-            <img src="/bitsnbytes.png" alt="Bits&Bytes" style={{ height: '14px', opacity: 0.8 }} />
-            <img src="/phaser.png" alt="Phaser" style={{ height: '12px', opacity: 0.8 }} /><span style={{ color: '#ff2d78', marginLeft: '-4px' }}>*</span>
-            <span>× <em style={{ fontStyle: 'italic' }}>Ship</em> · {CURRENT_YEAR}</span>
+            <div style={{ position: 'relative', display: 'inline-block', margin: '0 8px 0 6px' }}>
+              <img src="/bitsnbytes.png" alt="Bits&Bytes" style={{ position: 'absolute', top: '-4px', left: '-10px', height: '6px', opacity: 0.9 }} />
+              <img src="/phaser.png" alt="Phaser" style={{ height: '16px', opacity: 0.9 }} />
+            </div>
+            <span>Bits&Bytes' Phaser<span style={{ color: '#ff2d78' }}>*</span> ×</span>
+            <img src="/shipaccelerator_logo.jpg" alt="ShipLogo" style={{ height: '16px', borderRadius: '2px', marginLeft: '2px' }} />
+            <span><em style={{ fontStyle: 'italic' }}>Ship</em> · {CURRENT_YEAR}</span>
           </div>
           <div style={{ fontSize: '0.65rem', color: 'rgba(255, 255, 255, 0.35)', marginTop: '0.75rem', textAlign: 'center', maxWidth: '600px', lineHeight: 1.5 }}>
             * Phaser is a Bits&Bytes vertical dedicated to robotics builders, hardware hackers, and makers — the community for people who build things you can hold.
