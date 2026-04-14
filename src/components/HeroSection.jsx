@@ -162,7 +162,7 @@ export default function HeroSection() {
                   <img src="/bitsnbytes.png" alt="Bits&Bytes" style={{ position: 'absolute', top: '-4px', left: '-8px', height: '5px', opacity: 0.9 }} />
                   <img src="/phaser.png" alt="Phaser" style={{ height: '12px', opacity: 0.9 }} />
                 </div>
-                <span>BITS&BYTES' PHASER <span style={{ opacity: 0.6 }}>// SYS.INIT</span></span>
+                <span>PHASER <span style={{ opacity: 0.6 }}>// SYS.INIT</span></span>
             </div>
 
             <h1 className="main-title">
