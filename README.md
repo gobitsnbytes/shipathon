@@ -1,6 +1,6 @@
 # SH1PATHON 🚀
 
-**The ultimate build event by Bits&Bytes' Phaser × SH1P.**
+**The ultimate build event by Phaser × SH1P.**
 
 SH1PATHON is a highly-optimized, aesthetically premium Next.js landing page built to represent the most ambitious hackathon on the planet. It utilizes modern WebGL, canvas-based image sequencing, and scroll-triggered animations to deliver a seamless, state-of-the-art interactive experience.
 
