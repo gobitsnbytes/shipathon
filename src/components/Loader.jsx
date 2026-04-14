@@ -103,7 +103,7 @@ export default function Loader({ onComplete }) {
             <img src="/bitsnbytes.png" alt="Bits&Bytes" style={{ position: 'absolute', top: '-4px', left: '-10px', height: '6px', opacity: 0.9 }} />
             <img src="/phaser.png" alt="Phaser" style={{ height: '16px', opacity: 0.9 }} />
           </div>
-          <span>Bits&Bytes' Phaser ×</span>
+          <span>Phaser ×</span>
           <img src="/shipaccelerator_logo.jpg" alt="ShipLogo" style={{ height: '16px', borderRadius: '2px', marginLeft: '2px' }} />
           <span><em style={{ fontStyle: 'italic' }}>SH1P</em></span>
         </div>

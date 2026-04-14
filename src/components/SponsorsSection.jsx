@@ -5,14 +5,14 @@ import { useEffect, useRef, useState } from 'react';
 const SPONSORS = {
   platinum: [
     { 
-      name: "Bits&Bytes' Phaser", 
+      name: "Phaser", 
       isLogoNode: (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
           <div style={{ position: 'relative', display: 'inline-block', marginTop: '8px' }}>
             <img src="/bitsnbytes.png" alt="Bits&Bytes" style={{ position: 'absolute', top: '-10px', left: '-20px', height: '14px', opacity: 0.9 }} />
             <img src="/phaser.png" alt="Phaser" style={{ height: '48px' }} />
           </div>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.8rem', fontWeight: 500, color: 'rgba(255, 255, 255, 0.5)', letterSpacing: '0.05em' }}>Bits&Bytes' Phaser</span>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.8rem', fontWeight: 500, color: 'rgba(255, 255, 255, 0.5)', letterSpacing: '0.05em' }}>Phaser</span>
         </div>
       )
     },
